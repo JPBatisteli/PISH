@@ -1,7 +1,7 @@
 #include "DHT.h" // Lib sensor de umidade e temperatura
 #include <WiFi.h> // Lib modulo wifi
 #include "FirebaseESP32.h" // Lib firebase/esp
-#include <Servo.h> // Lib Servo
+#include <ESP32Servo.h> // Lib Servo
 #include <NTPClient.h> // Lib data e hora
 
 #define ssid "dani" //nome da rede wifi
@@ -22,10 +22,10 @@ Servo Servo1;         // Cria objeto de um servo
 unsigned long tempo_ant_sensores = 0;
 unsigned long tempo_ant = 0;
 unsigned long tempo_atual = 0;
-double tempo_envio = 300000;                // 5 minutos
-const unsigned long tempo_exibicao = 4000;  // 4 segundos
+unsigned long tempo_envio = 1800000;        // 30 minutos
+const unsigned long tempo_exibicao = 5000;  // 5 segundos
 
-double t;                            //Temperatura
+double t;                            // Temperatura
 double h;                            // Umidade
 double lum;                          // Valor LDR
 int solo;                            // Variável para valor do sensor de umidade do solo
@@ -85,6 +85,7 @@ void verifica_tempUmid() {
 void verifica_Lumin() {
   lum = analogRead(sensorLDR); // Ler o pino Analógico onde está o LDR
 
+  // 4095 = 100% iluminido e 0 = 0% iluminado
   lum = 100 *  ((4095 - lum) / 4095); // Transforma valor lido em porcentagem
 
   Serial.print("Luminosidade: ");
@@ -101,6 +102,7 @@ void verifica_Lumin() {
 void verifica_umidSolo() {
   solo = analogRead(sensorSolo);   //4095 -> 3,3V
 
+  // 2200 =  umidade solo 0% (seco) e 4095 = umidade do solo 100% (molhado)
   UmidadePercentual = 100 * ((4095 - float(solo)) / 1895);
   Serial.print("Umidade do solo: ");
   Serial.print(UmidadePercentual);
@@ -118,12 +120,12 @@ void movimentaServo() {
 
   // Abre a "estufa"
   if (comandoServo  == "ABRE"  || lum > luminosidadeMaxima) {
-    // Vai para posicao de abertura
+    // Vai para posição de abertura
     Servo1.write(180);
 
   } else if (comandoServo == "FECHA") {
 
-    // Vai para a posicao de fechamento
+    // Vai para a posição de fechamento
     Servo1.write(50);
 
     delay(500);
@@ -131,6 +133,7 @@ void movimentaServo() {
     comandoServo = "PARADO";
 
   } else {
+    // Desliga servo
     Servo1.write(90);
   }
 
@@ -144,12 +147,14 @@ void solenoide() {
   // de 30% ou se o usuário manualmente mandar um sinal via app
   if (comandoSolenoide == "ABERTA" || UmidadePercentual < umidadeMinimaPlanta) {
 
-    digitalWrite(rele, LOW); // Abre solenoide
+    // Abre solenoide
+    digitalWrite(rele, LOW);
     delay(2000);
     comandoSolenoide = "FECHADA";
 
+    // Fecha solenoide
   } else if (comandoSolenoide == "FECHADA") {
-    digitalWrite(rele, HIGH); // Fecha solenoide
+    digitalWrite(rele, HIGH);
   }
 }
 
@@ -164,7 +169,7 @@ void dataHora() {
   dataFormatada = timeClient.getFormattedDate();
 
   // Extrai data do formato padrão
-  int splitT = dataFormatada.indexOf("T"); // Separa no meio
+  int splitT = dataFormatada.indexOf("T");   // Separa no meio
   data = dataFormatada.substring(0, splitT); // Data vai de 0 até o meio
   Serial.print("Data: ");
   Serial.println(data);
@@ -213,26 +218,31 @@ void streamCallback(MultiPathStreamData stream)
 
       if (stream.dataPath == "/UmidadeSolo") {
 
-        umidadeMinimaPlanta = stream.value.toDouble(); // Recebe dados do usuário de qual é a umidade necessária para a planta
+        // Recebe dados do usuário de qual é a umidade necessária para a planta
+        umidadeMinimaPlanta = stream.value.toDouble();
         Serial.println("Umidade minima da planta: " + stream.dataPath + ", Tipo: " + stream.type + ", Valor: " + umidadeMinimaPlanta);
 
       } else if (stream.dataPath == "/Luminosidade") {
 
-        luminosidadeMaxima = stream.value.toDouble(); // Recebe dados do usuário de qual é a luminosidade necessária para a planta
+        // Recebe dados do usuário de qual é a luminosidade necessária para a planta
+        luminosidadeMaxima = stream.value.toDouble();
         Serial.println("Luminosidade maxima: " + stream.dataPath + ", Tipo: " + stream.type + ", Valor: " + luminosidadeMaxima);
 
       } else if (stream.dataPath == "/Solenoide") {
 
-        comandoSolenoide = stream.value;            // Recebe dados do usuário para regar ou não a planta
+        // Recebe dados do usuário para regar ou não a planta
+        comandoSolenoide = stream.value;
         Serial.println("Comando solenoide: " + stream.dataPath + ", Tipo: " + stream.type + ", Valor: " + comandoSolenoide);
 
       } else if (stream.dataPath == "/Servo") {
 
-        comandoServo = stream.value;              // Recebe dados do usuário para abrir ou não a estufa
+        // Recebe dados do usuário para abrir ou não a estufa
+        comandoServo = stream.value;
         Serial.println("Comando servo: " + stream.dataPath + ", Tipo: " + stream.type + ", Valor: " + comandoServo);
       } else if (stream.dataPath == "/TempoEnvio") {
 
-        tempo_envio = stream.value.toDouble();              // Recebe dados do usuário para tempo de envio
+        // Recebe dados do usuário para tempo de envio
+        tempo_envio = stream.value.toDouble();
         Serial.println("Tempo de Envio: " + stream.dataPath + ", Tipo: " + stream.type + ", Valor: " + tempo_envio);
       } else {
         Serial.println("Nada de novo na Stream");
@@ -285,7 +295,8 @@ void setup() {
   timeClient.setTimeOffset(-10800);
 
   // Define a entrada do servo
-  Servo1.attach(pinoServo);
+  Servo1.attach(pinoServo, 500, 2400);
+  Servo1.setPeriodHertz(50);
 
   // Define a porta do rele como saída
   pinMode(rele, OUTPUT);
