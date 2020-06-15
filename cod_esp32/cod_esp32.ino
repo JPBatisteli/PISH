@@ -3,6 +3,7 @@
 #include "FirebaseESP32.h" // Lib firebase/esp
 #include <ESP32Servo.h> // Lib Servo
 #include <NTPClient.h> // Lib data e hora
+#include <driver/adc.h>
 
 #define ssid "dani" //nome da rede wifi
 #define password "dani4321" //senha da rede wifi
@@ -12,10 +13,10 @@
 
 #define pinoServo 33   // Porta Servo
 #define sensorLDR 35   // Porta LDR
-#define sensorSolo 34  // Porta Sensor Solo
+#define sensorSolo 32  // Porta Sensor Solo
 #define rele  25       // Porta do Relé
 
-DHT dht(32, DHT22);   // Porta Temperatura e Umidade
+DHT dht(26, DHT22);   // Porta Temperatura e Umidade
 Servo Servo1;         // Cria objeto de um servo
 
 // Define tempos para exibicao e envio de dados
@@ -32,6 +33,8 @@ int solo;                            // Variável para valor do sensor de umidad
 double UmidadePercentual;            // Umidade percentual do solo
 double umidadeMinimaPlanta = 40;     // Valor padrão da umidade minima da planta selecionada
 double luminosidadeMaxima = 90;      // Valor padrão da luminosidade minima da planta selecionada
+const int solo_seco = 3600;          // Calibra sensor solo
+const int solo_molhado = 1300;       // Calibra sensor solo
 
 FirebaseData firebaseData1, firebaseData2, firebaseData3;  // Cria objeto de dados firebase
 FirebaseJson json;                                         // Cria um JSON para armazenar os dados do objeto
@@ -100,10 +103,12 @@ void verifica_Lumin() {
 //----------------------------------------------------------------------------------//
 
 void verifica_umidSolo() {
-  solo = analogRead(sensorSolo);   //4095 -> 3,3V
 
-  // 2200 =  umidade solo 0% (seco) e 4095 = umidade do solo 100% (molhado)
-  UmidadePercentual = 100 * ((4095 - float(solo)) / 1895);
+  // Lê valor do sensor
+  solo = analogRead(sensorSolo);
+
+  // Realiza regra de 3 onde, variavel solo_seco = 0, variavel solo_molhado = 100
+  UmidadePercentual = map(solo, solo_seco, solo_molhado, 0, 100);
   Serial.print("Umidade do solo: ");
   Serial.print(UmidadePercentual);
   Serial.print("%\n");
