@@ -3,7 +3,6 @@
 #include "FirebaseESP32.h" // Lib firebase/esp
 #include <ESP32Servo.h> // Lib Servo
 #include <NTPClient.h> // Lib data e hora
-#include <driver/adc.h>
 
 #define ssid "dani" //nome da rede wifi
 #define password "dani4321" //senha da rede wifi
