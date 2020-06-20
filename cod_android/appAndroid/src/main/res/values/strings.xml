@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Jardigii</string>
+    <string name="digite_email">Digite seu e-mail</string>
+    <string name="digite_senha">Digite sua senha</string>
+    <string name="botao_logar">Logar</string>
+    <string name="nao_tem_conta">Não tem conta? Cadastre-se</string>
+    <string name="digite_nome">Digite seu nome</string>
+    <string name="cadastrar">Cadastrar</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="digite_nome_planta">Digite o nome da planta</string>
+    <string name="digite_temperatura_planta">Digite a temperatura da planta</string>
+    <string name="digite_luminosidade_planta">Digite a luminosidade da planta</string>
+    <string name="digite_umidadesSolo_planta">Digite a umidade do solo da planta</string>
+    <string name="cadastrar_planta">CADASTRAR</string>
+</resources>

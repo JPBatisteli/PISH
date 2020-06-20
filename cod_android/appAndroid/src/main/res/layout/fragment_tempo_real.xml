@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.TempoRealFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#0E0E0E">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="421dp"
+            android:layout_height="76dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:background="@color/colorPrimary"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.024">
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="71dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/temperatura1" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/temperaturaID"
+            android:layout_width="204dp"
+            android:layout_height="49dp"
+            android:gravity="center"
+            android:text="Temperatura"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="normal|bold|italic"
+            app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout"
+            app:layout_constraintTop_toTopOf="@+id/linearLayout" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="421dp"
+            android:layout_height="76dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/colorPrimary"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            app:layout_constraintVertical_bias="0.033">
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="88dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/umidade1" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/umidadeID"
+            android:layout_width="204dp"
+            android:layout_height="49dp"
+            android:gravity="center"
+            android:text="Umidade"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="normal|bold|italic"
+            app:layout_constraintBottom_toBottomOf="@+id/linearLayout1"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout1"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout1"
+            app:layout_constraintTop_toTopOf="@+id/linearLayout1" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="421dp"
+            android:layout_height="76dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/colorPrimary"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout1"
+            app:layout_constraintVertical_bias="0.031">
+
+            <ImageView
+                android:id="@+id/umidadesolo"
+                android:layout_width="81dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/umidadesolo1" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/umidadesoloID"
+            android:layout_width="204dp"
+            android:layout_height="49dp"
+            android:gravity="center"
+            android:text="Umidade do Solo"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="normal|bold|italic"
+
+            app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/linearLayout2" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout4"
+            android:layout_width="421dp"
+            android:layout_height="76dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/colorPrimary"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+            app:layout_constraintVertical_bias="0.041">
+
+            <ImageView
+                android:id="@+id/luminosidade"
+                android:layout_width="89dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/luminosidade1" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/luminosidadeID"
+            android:layout_width="204dp"
+            android:layout_height="49dp"
+            android:gravity="center"
+            android:text="Luminosidade"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="normal|bold|italic"
+            app:layout_constraintBottom_toBottomOf="@+id/linearLayout4"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout4"
+            app:layout_constraintHorizontal_bias="0.506"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout4"
+            app:layout_constraintTop_toTopOf="@+id/linearLayout4" />
+
+        <ToggleButton
+            android:id="@+id/botaoRegarID"
+            android:layout_width="158dp"
+            android:layout_height="46dp"
+            android:background="@color/colorPrimary"
+            android:text="ToggleButton"
+            android:textColor="#FFFFFF"
+            android:textOff="Desligado"
+            android:textOn="Regando"
+            android:textStyle="normal|bold|italic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+            app:layout_constraintVertical_bias="0.223" />
+
+        <ToggleButton
+            android:id="@+id/botaoServoID"
+            android:layout_width="158dp"
+            android:layout_height="46dp"
+            android:background="@color/colorPrimary"
+            android:text="ToggleButton"
+            android:textColor="#FFFFFF"
+            android:textOff="Estufa fechada"
+            android:textOn="Estufa aberta"
+            android:textStyle="normal|bold|italic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.841"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+            app:layout_constraintVertical_bias="0.223" />
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="166dp"
+            android:layout_height="49dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Clique no botão pra regar"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:textStyle="normal|bold|italic"
+            app:layout_constraintBottom_toTopOf="@+id/botaoRegarID"
+
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+            app:layout_constraintVertical_bias="0.094" />
+
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="211dp"
+            android:layout_height="44dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Clique no botão pra abrir a estufa"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+
+
+            android:textSize="14sp"
+            android:textStyle="normal|bold|italic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.92"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+            app:layout_constraintVertical_bias="0.006" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
